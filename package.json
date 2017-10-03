@@ -1,9 +1,13 @@
 {
   "name": "wx-server",
-  "version": "0.0.0",
-  "private": true,
+  "version": "1.0.0",
+  "description": "A wechat server for wx-group",
   "scripts": {
     "start": "node ./bin/www"
+  },
+  "author": "Kan Zheng",
+  "engines": {
+    "node": "6.11.3"
   },
   "dependencies": {
     "body-parser": "~1.17.1",
@@ -12,6 +16,7 @@
     "express": "~4.15.2",
     "morgan": "~1.8.1",
     "pug": "~2.0.0-beta11",
+    "request": "^2.83.0",
     "serve-favicon": "~2.4.2"
   }
 }
