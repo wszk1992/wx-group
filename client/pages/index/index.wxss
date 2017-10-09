@@ -9,6 +9,14 @@
   position: relative;
 }
 
+.frame-title {
+  padding-bottom: 30px;
+}
+
+.frame-main {
+  padding-top: 60px;
+}
+
 .pin-image {
   position: absolute;
   float: right;
@@ -18,40 +26,6 @@
 
 }
 
-.statistics {
-  padding: 20rpx;
-  text-align: center;
-  font-size: 13px;
-  position: relative;
-}
-
-.main {
-  margin-bottom: 46px;
-}
-
-.bottomButton {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-}
-
-.flex-item {
-  float: left;
-  width: 45px;
-  height: 60px;
-  margin: 2px;
-  border: 3px solid red;
-  padding-bottom: 15px;
-}
-
-.avatar {
-  display: block;
-  margin:auto;
-  width: 35px;
-  height:35px;
-}
-
-.nickName {
-  display: block;
-  text-align: center;
+.buttonFrame {
+  padding: 30px;
 }

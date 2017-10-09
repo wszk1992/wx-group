@@ -1,0 +1,23 @@
+<!--pages/group/group.wxml-->
+<body>
+  <view id="content">
+    <view class="frame">
+      <view class="main">
+        <view class="title">签到墙
+        <image class ="pin-image" src="http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/pin-icon.png"></image>
+        </view>
+        <view class="statistics">签到人数: {{users.length}}</view>
+      </view>
+      <view class="flex-items" style="flex-direction:row;" wx:for="{{users}}">
+        <view class="flex-item">
+          <image class="avatar" src="{{item.avatarUrl}}"></image>
+          <text class="nickName">{{item.nickName}}</text>
+        </view>
+      </view>
+    </view>
+    <view class="bottom">
+      <button wx:if="{{!belongToThisGroup}}" class="bottomButton" type="primary" data-status='0' bindtap='joinGroup' loading="{{joinLoading}}">JOIN</button>
+      <button wx:else class="bottomButton" type="warn" data-status='1' bindtap='joinGroup' loading="{{joinLoading}}">LEAVE</button>
+    </view>
+  </view>
+</body>
