@@ -21,7 +21,9 @@ Page({
     var that = this;
     //get the group info
     var groupId = options.groupId;
-    that.data.isOnLoad = true;
+    that.setData({
+      groupId: groupId
+    })
     wx.showLoading({
       title: 'Loading',
       mask: true
@@ -112,7 +114,7 @@ Page({
     }
     return {
       title: '自定义转发标题',
-      path: '../group?groupId=' + that.data.groupId,
+      path: '?groupId=' + that.data.groupId,
       success: function (res) {
         // 转发成功
         console.log("share successfully");
