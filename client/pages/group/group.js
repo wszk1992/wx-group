@@ -16,14 +16,16 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var that = this;
+    //get the group info
+    var groupId = options.groupId;
+    
     wx.showLoading({
       title: 'Loading',
       mask: true
     })
     console.log("onLoad", options);
-    var that = this;
-    //get the group info
-    var groupId = options.groupId;
+
     //check session
     wx.checkSession({
       success: function() {
@@ -152,29 +154,79 @@ Page({
       }
     })
   },
+  leaveGroup: function(){
+    var that = this;
+    if(that.data.joinLoading == true){
+      return;
+    }
+    that.setData({
+      joinLoading: true
+    });
+    wx.checkSession({
+      success: function() {
 
-  // joinGroup: function(event) {
-  //   //join the user into the group
-  //   var that = this;
+      },
+
+      fail: function() {
+        wx.login({
+          success: function(res) {
+            if(res.code) {
+              app.globalData.code = res.code;
+            } else {
+              console.log("Fail to get user login status!" + res.errMsg);
+            }
+          }
+        });
+      },
+
+      complete: function () {
+        wx.request({
+          url: app.globalData.serverURL + 'group/leaveGroup',
+          data: {
+            code: app.globalData.code,
+          },
+          success: function (res) {
+            if(res){
+              if(res.data.success){
+                app.globalData.isInGroup = false
+                wx.redirectTo({
+                  url: '../index/index',
+                })
+              }
+            }
+          },
+          complete: function(res) {
+            that.setData({
+              joinLoading: false
+            });
+          }
+        });
+      }
+    });
+
+  },
+
+  joinGroup: function(event) {
+  // var that = this;
   //   if(that.data.joinLoading == true) {
   //     return;
   //   }
-  //   that.setData({
-  //     joinLoading: true
-  //   });
-  //   wx.checkSession({
-  //     success: function() {
-        
+  // that.setData({
+  //   joinLoading: true
+  // });
+  // wx.checkSession({
+  //  success: function() {
+      
+  //  }
+  // fail: function() {
+  //   wx.login({
+  //     success: function(res) {
+  //      if(res.code) {
+  //       app.globalData.code = res.code;
+  //     } else {
+  //       console.log("Fail to get user login status!" + res.errMsg);
   //     }
-  //     fail: function() {
-  //       wx.login({
-  //         success: function(res) {
-  //           if(res.code) {
-  //             app.globalData.code = res.code;
-  //           } else {
-  //             console.log("Fail to get user login status!" + res.errMsg);
-  //           }
-  //         }
+  // }
   //       });
   //     },
   //     complete: function () {
@@ -209,6 +261,6 @@ Page({
   //     }
   //   });
     
-  // }
+  }
 })
 

@@ -1,4 +1,5 @@
 var mongoClient = require('mongodb').MongoClient;
+var ObjectId = require('mongodb').ObjectID;
 var request = require('request');
 var myMongo = {};
 var url = "mongodb://localhost:27017/wxgroup";
@@ -160,7 +161,7 @@ myMongo.getUsersByGroupId = function(groupId, callback) {
 	var that = this;
 	if(!that.isConnected()) return;
 	var array = [];
-	db_.collection("users").find({groupId:groupId}).each(function(err, user) {
+	db_.collection("users").find({groupId: ObjectId(groupId)}).each(function(err, user) {
 		if(err) throw err;
 		if(user) {
 			console.log("find one user", user);
@@ -194,7 +195,7 @@ myMongo.getManagerByGroupId = function(groupId, callback) {
 myMongo.updateSession = function(code, callback) {
 	var that = this;
 	if(!that.isConnected()) return;
-	db_.collection("session").findOne({code:code}, function(err, res) {
+		db_.collection("session").findOne({code:code}, function(err, res) {
 		if(err) throw err;
 		if(res) {
 			callback(null, res._id);

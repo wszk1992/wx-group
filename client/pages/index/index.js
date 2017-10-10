@@ -86,6 +86,9 @@ Page({
     if(that.data.createLoading == true) {
       return;
     }
+    that.setData({
+      createLoading: true
+    });
     //check if the user is currently in a group
     //pop out a modal if true
     if(app.globalData.isInGroup) {
@@ -104,9 +107,6 @@ Page({
         }
       });
     }
-    that.setData({
-      createLoading: true
-    });
     wx.checkSession({
       success: function() {
         that.requestCreateGroup(app.globalData.code);

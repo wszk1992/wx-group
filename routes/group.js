@@ -37,6 +37,113 @@ router.get('/', function(req, res, next) {
 	});
 })
 
+router.get('/leaveGroup', function(req, res, next) {
+	var code = req.query.code;
+	myMongo.updateSession(code, function(err, openId) {
+		if(err) {
+			console.log("Update session failed. ", err.errMsg);
+			res.send({sucess: false});
+		}
+		myMongo.deleteUser(openId);
+		res.send({success : true});
+		
+	});
+})
+
+ // wx.checkSession({
+  //  success: function() {
+      
+  //  }
+  // fail: function() {
+  //   wx.login({
+  //     success: function(res) {
+  //      if(res.code) {
+  //       app.globalData.code = res.code;
+  //     } else {
+  //       console.log("Fail to get user login status!" + res.errMsg);
+  //     }
+  // }
+  //       });
+  //     },
+  //     complete: function () {
+  //       wx.request({
+  //         url: app.globalData.serverURL + 'joinGroup',
+  //         data: {
+  //           code: app.globalData.code,
+  //           status: event.target.dataset.status,
+  //           nickName: app.globalData.userInfo.nickName,
+  //           avatarUrl: app.globalData.userInfo.avatarUrl
+  //         },
+  //         success: function (res) {
+  //           if (res.data) {
+  //             //get the response of changing the user's status from server
+  //             console.log("change the status successfully: ", res.data.status);
+  //             that.setData({
+  //               isInGroup: res.data.status,
+  //               users: res.data.users,
+  //               usersNum: res.data.usersNum
+  //             });
+  //             //add the user into users list
+  //           } else {
+  //             console.log("fail to change the status");
+  //           }
+  //         },
+  //         complete: function(res) {
+  //           that.setData({
+  //             joinLoading: false
+  //           });
+  //         }
+  //       });
+  //     }
+  //   });
+
+ // wx.checkSession({
+  //  success: function() {
+      
+  //  }
+  // fail: function() {
+  //   wx.login({
+  //     success: function(res) {
+  //      if(res.code) {
+  //       app.globalData.code = res.code;
+  //     } else {
+  //       console.log("Fail to get user login status!" + res.errMsg);
+  //     }
+  // }
+  //       });
+  //     },
+  //     complete: function () {
+  //       wx.request({
+  //         url: app.globalData.serverURL + 'joinGroup',
+  //         data: {
+  //           code: app.globalData.code,
+  //           status: event.target.dataset.status,
+  //           nickName: app.globalData.userInfo.nickName,
+  //           avatarUrl: app.globalData.userInfo.avatarUrl
+  //         },
+  //         success: function (res) {
+  //           if (res.data) {
+  //             //get the response of changing the user's status from server
+  //             console.log("change the status successfully: ", res.data.status);
+  //             that.setData({
+  //               isInGroup: res.data.status,
+  //               users: res.data.users,
+  //               usersNum: res.data.usersNum
+  //             });
+  //             //add the user into users list
+  //           } else {
+  //             console.log("fail to change the status");
+  //           }
+  //         },
+  //         complete: function(res) {
+  //           that.setData({
+  //             joinLoading: false
+  //           });
+  //         }
+  //       });
+  //     }
+  //   });
+
 
 // router.get('/joinGroup', function(req, res, next) {
 // 	var code = req.query.code;

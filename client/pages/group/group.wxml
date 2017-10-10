@@ -16,8 +16,8 @@
       </view>
     </view>
     <view class="bottom">
-      <button wx:if="{{!belongToThisGroup}}" class="bottomButton" type="primary" data-status='0' bindtap='joinGroup' loading="{{joinLoading}}">JOIN</button>
-      <button wx:else class="bottomButton" type="warn" data-status='1' bindtap='joinGroup' loading="{{joinLoading}}">LEAVE</button>
+      <button wx:if="{{!belongToThisGroup}}" class="bottomButton" type="primary" bindtap='joinGroup' loading="{{joinLoading}}">JOIN</button>
+      <button wx:else class="bottomButton" type="warn" bindtap='leaveGroup' loading="{{joinLoading}}">LEAVE</button>
     </view>
   </view>
 </body>
