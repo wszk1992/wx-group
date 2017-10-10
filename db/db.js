@@ -2,7 +2,7 @@ var mongoClient = require('mongodb').MongoClient;
 var ObjectId = require('mongodb').ObjectID;
 var request = require('request');
 var myMongo = {};
-var url = "mongodb://localhost:27017/wxgroup";
+var url = "mongodb://wszk1992:wszk1992@ds117495.mlab.com:17495/wx-group";
 var AppID = "wx33c22a7766cf9f17";
 var AppSecret = "d4a46fe8a75c212868a46e4bedb15769";
 

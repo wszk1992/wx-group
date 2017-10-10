@@ -105,13 +105,14 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function (res) {
+    var that = this;
     if (res.from === 'button') {
       // 来自页面内转发按钮
       console.log(res.target)
     }
     return {
       title: '自定义转发标题',
-      path: '/',
+      path: '?groupId=' + that.data.groupId,
       success: function (res) {
         // 转发成功
         console.log("share successfully");
