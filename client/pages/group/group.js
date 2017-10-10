@@ -6,10 +6,12 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isOnLoad: true,
     belongToThisGroup: false,
     users: {},
     joinLoading: false,
     groupId: -1,
+    isManager: false,
   },
 
   /**
@@ -19,7 +21,7 @@ Page({
     var that = this;
     //get the group info
     var groupId = options.groupId;
-    
+    that.data.isOnLoad = true;
     wx.showLoading({
       title: 'Loading',
       mask: true
@@ -50,6 +52,9 @@ Page({
       },
       complete: function() {
         wx.hideLoading();
+        that.setData({
+          isOnLoad: false
+        });
       }
     });
   },
@@ -145,7 +150,8 @@ Page({
           console.log("Receiving data from server: ", res.data);
           that.setData({
             belongToThisGroup: res.data.belongToThisGroup,
-            users: res.data.users
+            users: res.data.users,
+            isManager: res.data.isManager
           })
         }
       },
@@ -162,11 +168,32 @@ Page({
     that.setData({
       joinLoading: true
     });
+    if(that.data.isManager) {
+      wx.showModal({
+        title: "Notice",
+        content: "You are currently a group manager. Do you still want to leave a group?",
+        confirmText: "Yes",
+        cancelText: "No",
+        success: function(res) {
+          if(res.confirm) {
+            console.log("The user confirm to create a group");
+            that.leaveGroupHelper();
+          } else if (res.cancel) {
+            console.log("The user cancel the operation");
+            that.setData({
+              joinLoading: false
+            });
+            return;
+          }
+        }
+      });
+    } else {
+      that.leaveGroupHelper();
+    }
+  },
+  leaveGroupHelper: function() {
+    var that = this;
     wx.checkSession({
-      success: function() {
-
-      },
-
       fail: function() {
         wx.login({
           success: function(res) {
@@ -203,7 +230,6 @@ Page({
         });
       }
     });
-
   },
 
   joinGroup: function(event) {

@@ -45,7 +45,6 @@ router.get('/onlogin', function(req, res, next) {
 				groupId: user ? user.groupId : -1
 			});
 		});
-		
 	});
 });
 

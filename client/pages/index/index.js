@@ -95,38 +95,55 @@ Page({
       wx.showModal({
         title: "Notice",
         content: "You are currently in a group. Do you still want to create a group? (leave the current group) ",
-        confirmText: "Continue",
-        cancelText: "Cancel",
+        confirmText: "Yes",
+        cancelText: "No",
         success: function(res) {
           if(res.confirm) {
-            console.log("The user confirm to create a group");
+            wx.checkSession({
+              fail: function() {
+                wx.login({
+                  success: function(res) {
+                    if(res.code) {
+                      app.globalData.code = res.code;
+                    } else {
+                      console.log("Fail to get user login status!" + res.errMsg);
+                    }
+                  },
+                  fail: function(res) {
+                    console.log("Fail to login!" + res.errMsg);
+                  }
+                })
+              },
+              complete: function() {
+                that.requestCreateGroup(app.globalData.code);
+              }
+            })
           } else if (res.cancel) {
             console.log("The user cancel the operation");
-            return;
           }
         }
       });
-    }
-    wx.checkSession({
-      success: function() {
-        that.requestCreateGroup(app.globalData.code);
-      },
-      fail: function() {
-        wx.login({
-          success: function(res) {
-            if(res.code) {
-              app.globalData.code = res.code;
-              that.requestCreateGroup(res.code);
-            } else {
-              console.log("Fail to get user login status!" + res.errMsg);
+    } else {
+      wx.checkSession({
+        fail: function() {
+          wx.login({
+            success: function(res) {
+              if(res.code) {
+                app.globalData.code = res.code;
+              } else {
+                console.log("Fail to get user login status!" + res.errMsg);
+              }
+            },
+            fail: function(res) {
+              console.log("Fail to login!" + res.errMsg);
             }
-          },
-          fail: function(res) {
-            console.log("Fail to login!" + res.errMsg);
-          }
-        })
-      }
-    })
+          })
+        },
+        complete: function() {
+          that.requestCreateGroup(app.globalData.code);
+        }
+      })
+    }
   },
 
   requestCreateGroup: function (code) {
@@ -158,6 +175,9 @@ Page({
         } else {
           console.log("Received empty data!");
         }
+      },
+      fail: function(res) {
+        console.log("Fail to request!");
       }
     });
   },

@@ -146,11 +146,7 @@ myMongo.getUserById = function(openId, callback) {
 	if(!that.isConnected()) return;
 	db_.collection("users").findOne({_id:openId}, function(err, res) {
 		if(err) throw err;
-		if(res) {
-			callback(null, res);
-		} else {
-			callback({errMsg:"no user found"}, res);
-		}
+		callback(null, res);
 	})
 }
 

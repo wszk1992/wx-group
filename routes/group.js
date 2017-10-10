@@ -29,7 +29,8 @@ router.get('/', function(req, res, next) {
 			myMongo.getUsersByGroupId(groupId, function(users) {
 				res.send({
 					belongToThisGroup: user.groupId == groupId,
-					users: users
+					users: users,
+          isManager: user.isManager && user.groupId == groupId
 				})
 			});
 		});
