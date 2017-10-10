@@ -55,7 +55,7 @@ App({
   // },
   globalData: {
     userInfo: {},
-    serverURL: 'http://localhost:3000/',
+    serverURL: 'https://salty-tundra-57785.herokuapp.com/',
     isInGroup: false,
     groupId: -1,
     code: "",

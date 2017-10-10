@@ -112,7 +112,7 @@ Page({
     }
     return {
       title: '自定义转发标题',
-      path: '?groupId=' + that.data.groupId,
+      path: '../group?groupId=' + that.data.groupId,
       success: function (res) {
         // 转发成功
         console.log("share successfully");
